@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class DropdownFormInput<T> extends StatelessWidget {
   final String? labelText;
   final List<DropdownMenuItem<T>> items;
+  final void Function(T?)? onChanged;
+  final T? startingValue;
 
-  DropdownFormInput({ required this.items, this.labelText });
+  DropdownFormInput({ required this.items, this.labelText, this.onChanged, this.startingValue });
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,8 @@ class DropdownFormInput<T> extends StatelessWidget {
         labelText: labelText,
       ),
       items: items,
+      value: startingValue,
+      onChanged: onChanged,
     );
   }
 }

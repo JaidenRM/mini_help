@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_help/pages/home/widgets/activity_container.dart';
 import 'package:mini_help/pages/home/widgets/intro_container.dart';
-import 'package:mini_help/services/activity_service/fake.dart';
+import 'package:mini_help/services/activity/fake.dart';
 
 class HomeScreen extends StatelessWidget {
   final _activityService = FakeActivityService();
@@ -9,11 +9,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          IntroContainer(),
-          ActivityContainer(activityService: _activityService,),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+        child: Column(
+          children: [
+            IntroContainer(),
+            Expanded(
+              child: ActivityContainer(activityService: _activityService,)
+            ),
+          ],
+        ),
       ),
     );
   }
