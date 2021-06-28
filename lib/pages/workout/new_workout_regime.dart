@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_help/forms/activity/new_activity.dart';
-import 'package:mini_help/services/activity/index.dart';
+import 'package:mini_help/forms/activity_types/workout/index.dart';
+import 'package:mini_help/models/activities/workout_regime.dart';
 
-class NewActivityScreen extends StatelessWidget {
-  final ActivityService activityService;
+class NewWorkoutRegimeScreen extends StatelessWidget {
+  final Function(WorkoutRegime) onSubmit;
 
-  NewActivityScreen({ required this.activityService });
+  NewWorkoutRegimeScreen(this.onSubmit);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Activity'),
+        title: Text('New Workout Regime'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -20,7 +20,7 @@ class NewActivityScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              NewActivityForm(activityService: activityService,),
+              WorkoutActivityForm(onSubmit),
             ]
           ),
         ),

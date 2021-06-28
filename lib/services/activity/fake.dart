@@ -1,7 +1,8 @@
 import 'package:mini_help/models/activities/activity.dart';
 import 'package:mini_help/models/activities/reminder.dart';
 import 'package:mini_help/models/admin/user.dart';
-import 'package:mini_help/services/activity_service/index.dart';
+
+import 'index.dart';
 
 var fakeUser = User(
   userId: '1',

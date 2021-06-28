@@ -13,4 +13,13 @@ class Reminder extends Activity {
     createdOn: createdOn,
     name: name,
   );
+
+  Reminder.activity({
+    required this.description, required this.remindOn, Activity? activity
+  }) : super(
+    createdBy: activity?.createdBy,
+    createdOn: activity?.createdOn,
+    name: activity?.name,
+  );
+
 }

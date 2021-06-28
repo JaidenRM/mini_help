@@ -1,0 +1,1 @@
+const SIZE_TITLE = 24.0;

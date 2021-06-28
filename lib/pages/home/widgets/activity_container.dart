@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_help/models/activities/activity.dart';
-import 'package:mini_help/services/activity_service/index.dart';
+import 'package:mini_help/pages/activity/new_activity.dart';
+import 'package:mini_help/services/activity/index.dart';
+import 'package:mini_help/utils/constants/index.dart';
 import 'package:mini_help/widgets/buttons/primary/index.dart';
 
 class ActivityContainer extends StatelessWidget {
@@ -14,7 +16,9 @@ class ActivityContainer extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Text('Today', style: TextStyle(fontSize: 24)),
+          Text(
+            'Today', 
+            style: TextStyle(fontSize: SIZE_TITLE)),
           FutureBuilder(
             future: activityService.getAllActivities(),
             builder: (BuildContext context, AsyncSnapshot<List<Activity>> snapshot) {
@@ -29,7 +33,7 @@ class ActivityContainer extends StatelessWidget {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          title: Text(snapshot.data![index].name),
+                          title: Text(snapshot.data![index].name ?? ''),
                         );
                       },
                     );
@@ -39,7 +43,12 @@ class ActivityContainer extends StatelessWidget {
               return Text('Oops!');
             },
           ),
-          PrimaryButton('(+) Add New Activity', (){}),
+          PrimaryButton('(+) Add New Activity', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewActivityScreen(activityService: activityService,)),
+            );
+          }),
         ],
       ),
     );
