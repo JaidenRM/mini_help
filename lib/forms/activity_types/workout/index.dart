@@ -130,9 +130,7 @@ class _WorkoutActivityFormState extends State<WorkoutActivityForm> {
                     frequencyType: _frequencyType,
                     goal: _goals,
                     workouts: _workouts,
-                    createdBy: User(firstName: 'User', lastName: 'Name', userId: '1'), 
-                    createdOn: DateTime.now(), 
-                    lastModified: DateTime.now(),
+                    createdOn: DateTime.now(),
                   ));
                   
                   Navigator.pop(context);

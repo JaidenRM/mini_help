@@ -1,14 +1,11 @@
-import 'package:mini_help/models/admin/user.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-abstract class Activity {
-  String? name;
+abstract class Activity extends HiveObject {
+  
+  @HiveField(0)
+  String name;
+  @HiveField(1)
+  DateTime createdOn;
 
-  User? createdBy;
-  DateTime? createdOn;
-  DateTime? lastModified;
-
-  Activity({ 
-    this.name, this.createdBy, 
-    this.createdOn, this.lastModified 
-  });
+  Activity({ required this.name, required this.createdOn });
 }

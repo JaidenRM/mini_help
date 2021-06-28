@@ -10,37 +10,24 @@ class ActivityContainer extends StatelessWidget {
   final ActivityService activityService;
 
   ActivityContainer({ required this.activityService });
-
   @override
   Widget build(BuildContext context) {
+    var activities = activityService.getAllActivities();
+
     return Container(
       child: Column(
         children: [
           Text(
             'Today', 
             style: TextStyle(fontSize: SIZE_TITLE)),
-          FutureBuilder(
-            future: activityService.getAllActivities(),
-            builder: (BuildContext context, AsyncSnapshot<List<Activity>> snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting: 
-                  return Text('Loading...');
-                default:
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(snapshot.data![index].name ?? ''),
-                        );
-                      },
-                    );
-                  }
-              }
-
-              return Text('Oops!');
+          ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: activities.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(activities[index].name),
+              );
             },
           ),
           PrimaryButton('(+) Add New Activity', () {

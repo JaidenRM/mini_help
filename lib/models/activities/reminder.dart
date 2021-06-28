@@ -1,25 +1,21 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mini_help/models/activities/activity.dart';
-import 'package:mini_help/models/admin/user.dart';
 
+part 'reminder.g.dart';
+
+@HiveType(typeId: 1)
 class Reminder extends Activity {
+  @HiveField(2)
   String description;
+  @HiveField(3)
   DateTime remindOn;
   
   Reminder({
-    required User createdBy, required DateTime createdOn, required String name, 
+    required DateTime createdOn, required String name, 
     required this.description, required this.remindOn
   }) : super(
-    createdBy: createdBy,
     createdOn: createdOn,
     name: name,
-  );
-
-  Reminder.activity({
-    required this.description, required this.remindOn, Activity? activity
-  }) : super(
-    createdBy: activity?.createdBy,
-    createdOn: activity?.createdOn,
-    name: activity?.name,
   );
 
 }
