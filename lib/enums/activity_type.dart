@@ -1,14 +1,14 @@
 enum ActivityType {
   none,
-  workoutRegime,
+  workout,
   reminder,
 }
 
 extension ActivityTypeValues on ActivityType {
   String toValue() {
     switch (this) {
-      case ActivityType.workoutRegime:
-        return 'Workout Regime';
+      case ActivityType.workout:
+        return 'Workout';
       case ActivityType.reminder:
         return 'Reminder';
       default:
@@ -19,8 +19,8 @@ extension ActivityTypeValues on ActivityType {
 
 extension StringToActivityType on String {
   ActivityType toActivityTypeEnum() {
-    if (this == ActivityType.workoutRegime.toValue()) {
-      return ActivityType.workoutRegime;
+    if (this == ActivityType.workout.toValue()) {
+      return ActivityType.workout;
     }
     if (this == ActivityType.reminder.toValue()) {
       return ActivityType.reminder;
