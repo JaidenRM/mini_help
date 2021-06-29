@@ -84,7 +84,7 @@ class _NewActivityFormState extends State<NewActivityForm> {
                     
                     if (_activity != null) {
                       _activity!.name = _activityTitle;
-                      print(_activity);
+                      widget.activityService.saveActivity(_activity!);
                     }
                   }
                 }),

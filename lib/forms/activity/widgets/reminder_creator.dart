@@ -24,9 +24,11 @@ class _ReminderCreateState extends State<ReminderCreator> {
     return FormField(
       onSaved: (_) {
         widget.updateState(
-          Reminder.activity(
+          Reminder(
             description: _description, 
             remindOn: _remindOn,
+            createdOn: DateTime.now(),
+            name: '',
           )
         );
       },
