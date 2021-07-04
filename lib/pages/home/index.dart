@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mini_help/pages/home/widgets/activity_container.dart';
 import 'package:mini_help/pages/home/widgets/intro_container.dart';
-import 'package:mini_help/services/activity/hive.dart';
+import 'package:mini_help/services/exercise/hive.dart';
+import 'package:mini_help/services/workout/hive.dart';
 
 class HomeScreen extends StatelessWidget {
-  final _activityService = HiveActivityService();
+  final _workoutService = HiveWorkoutService();
+  final _exerciseService = HiveExerciseService();
   
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,10 @@ class HomeScreen extends StatelessWidget {
           children: [
             IntroContainer(),
             Expanded(
-              child: ActivityContainer(activityService: _activityService,)
+              child: ActivityContainer(
+                workoutService: _workoutService,
+                exerciseService: _exerciseService,
+              )
             ),
           ],
         ),

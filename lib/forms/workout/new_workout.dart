@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_help/models/activities/exercise.dart';
-import 'package:mini_help/models/activities/workout.dart';
-import 'package:mini_help/pages/workout/new_exercise.dart';
+import 'package:mini_help/models/workout/exercise_template.dart';
+import 'package:mini_help/models/workout/workout_exercise.dart';
+import 'package:mini_help/models/workout/workout_template.dart';
+import 'package:mini_help/pages/workout/new_workout_exercise.dart';
 import 'package:mini_help/widgets/buttons/primary/index.dart';
+import 'package:mini_help/widgets/inputs/form_text.dart';
 
 class NewWorkoutForm extends StatefulWidget {
-  final void Function(Workout) onSubmit;
+  final void Function(WorkoutTemplate) onSubmit;
+  final List<ExerciseTemplate> exerciseTemplates;
 
-  NewWorkoutForm(this.onSubmit);
+  NewWorkoutForm(this.onSubmit, this.exerciseTemplates);
 
   @override
   _NewWorkoutState createState() => _NewWorkoutState();
@@ -16,8 +19,9 @@ class NewWorkoutForm extends StatefulWidget {
 
 class _NewWorkoutState extends State<NewWorkoutForm> {
   final _formKey = GlobalKey<FormState>();
+  late String _name;
 
-  List<Exercise> _exercises = [];
+  final List<WorkoutExercise> _exercises = [];
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,18 @@ class _NewWorkoutState extends State<NewWorkoutForm> {
       key: _formKey,
       child: Column(
         children: [
+          TextFormInput(
+            labelText: 'Name',
+            onValidate: (String? text) {
+              if (text != null && text.isNotEmpty) {
+                setState(() {
+                  _name = text;
+                });
+              } else {
+                return 'Please enter a value';
+              }
+            },
+          ),
           Text('Exercises:'),
           ListView.builder(
             scrollDirection: Axis.vertical,
@@ -32,14 +48,17 @@ class _NewWorkoutState extends State<NewWorkoutForm> {
             itemCount: _exercises.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(_exercises[index].name),
+                title: Text(_exercises[index].exercise.name),
+                subtitle: Text('Sets: ${_exercises[index].sets}, Reps: ${_exercises[index].reps}'),
               );
             },
           ),
           PrimaryButton('(+) Add New Exercise', (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => NewExerciseScreen(_addExercise,)),
+              MaterialPageRoute(builder: (context) => NewWorkoutExerciseScreen(
+                _addExercise, 
+                widget.exerciseTemplates)),
             );
           }),
           Row(
@@ -49,7 +68,10 @@ class _NewWorkoutState extends State<NewWorkoutForm> {
               }),
               PrimaryButton('Submit', () {
                 if (_formKey.currentState!.validate() && _exercises.isNotEmpty) {
-                  widget.onSubmit(Workout(exercises: _exercises, createdOn: DateTime.now(), name: ''));
+                  widget.onSubmit(WorkoutTemplate(
+                    exercises: _exercises, 
+                    createdOn: DateTime.now(), 
+                    name: _name));
                   Navigator.pop(context);
                 }
               }),
@@ -60,7 +82,7 @@ class _NewWorkoutState extends State<NewWorkoutForm> {
     );
   }
 
-  void _addExercise(Exercise ex) {
+  void _addExercise(WorkoutExercise ex) {
     setState(() {
       _exercises.add(ex);
     });

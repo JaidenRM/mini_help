@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_help/forms/activity/new_activity.dart';
-import 'package:mini_help/services/activity/index.dart';
+import 'package:mini_help/services/exercise/index.dart';
+import 'package:mini_help/services/workout/index.dart';
 
 class NewActivityScreen extends StatelessWidget {
-  final ActivityService activityService;
+  final WorkoutService workoutService;
+  final ExerciseService exerciseService;
 
-  NewActivityScreen({ required this.activityService });
+  NewActivityScreen({ required this.workoutService, required this.exerciseService });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class NewActivityScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              NewActivityForm(activityService: activityService,),
+              NewActivityForm(workoutService: workoutService, exerciseService: exerciseService,),
             ]
           ),
         ),

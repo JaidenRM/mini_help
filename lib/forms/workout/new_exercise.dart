@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:mini_help/models/activities/exercise.dart';
+import 'package:mini_help/models/workout/exercise_template.dart';
 import 'package:mini_help/widgets/buttons/primary/index.dart';
 import 'package:mini_help/widgets/inputs/form_text.dart';
 
-class NewExerciseForm extends StatefulWidget {
-  final void Function(Exercise) onSubmit;
+class NewExerciseTemplateForm extends StatefulWidget {
+  final void Function(ExerciseTemplate) onSubmit;
 
-  NewExerciseForm(this.onSubmit);
+  NewExerciseTemplateForm(this.onSubmit);
 
   @override
-  _NewExerciseFormState createState() => _NewExerciseFormState();
+  _NewExerciseTemplateFormState createState() => _NewExerciseTemplateFormState();
 }
 
-class _NewExerciseFormState extends State<NewExerciseForm> {
+class _NewExerciseTemplateFormState extends State<NewExerciseTemplateForm> {
   final _formKey = GlobalKey<FormState>();
 
   late String _name;
-  late int _reps;
-  late int _sets;
+  //late int _reps;
+  //late int _sets;
 
   @override
   Widget build(BuildContext context) {
@@ -37,32 +37,32 @@ class _NewExerciseFormState extends State<NewExerciseForm> {
               }
             },
           ),
-          TextFormInput(
-            labelText: 'Sets: ',
-            onValidate: (String? text) {
-              var numericText = int.tryParse(text ?? '');
-              if (numericText != null) {
-                setState(() {
-                  _sets = numericText;
-                });
-              } else {
-                return 'Please enter a valid number';
-              }
-            },
-          ),
-          TextFormInput(
-            labelText: 'Reps: ',
-            onValidate: (String? text) {
-              var numericText = int.tryParse(text ?? '');
-              if (numericText != null) {
-                setState(() {
-                  _reps = numericText;
-                });
-              } else {
-                return 'Please enter a valid number';
-              }
-            },
-          ),
+          // TextFormInput(
+          //   labelText: 'Sets: ',
+          //   onValidate: (String? text) {
+          //     var numericText = int.tryParse(text ?? '');
+          //     if (numericText != null) {
+          //       setState(() {
+          //         _sets = numericText;
+          //       });
+          //     } else {
+          //       return 'Please enter a valid number';
+          //     }
+          //   },
+          // ),
+          // TextFormInput(
+          //   labelText: 'Reps: ',
+          //   onValidate: (String? text) {
+          //     var numericText = int.tryParse(text ?? '');
+          //     if (numericText != null) {
+          //       setState(() {
+          //         _reps = numericText;
+          //       });
+          //     } else {
+          //       return 'Please enter a valid number';
+          //     }
+          //   },
+          // ),
           Row(
             children: [
               PrimaryButton('Cancel', (){
@@ -74,10 +74,8 @@ class _NewExerciseFormState extends State<NewExerciseForm> {
                     .of(context)
                     .showSnackBar(SnackBar(content: Text('Processing Data')));
 
-                  widget.onSubmit(Exercise(
+                  widget.onSubmit(ExerciseTemplate(
                     name: _name,
-                    sets: _sets,
-                    reps: _reps,
                   ));
                   Navigator.pop(context);
                 }

@@ -1,18 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_help/models/activities/activity.dart';
+import 'package:mini_help/models/workout/exercise_template.dart';
 import 'package:mini_help/pages/activity/new_activity.dart';
-import 'package:mini_help/services/activity/index.dart';
+import 'package:mini_help/pages/workout/new_exercise.dart';
+import 'package:mini_help/pages/workout/new_workout.dart';
+import 'package:mini_help/services/exercise/index.dart';
+import 'package:mini_help/services/workout/index.dart';
 import 'package:mini_help/utils/constants/index.dart';
 import 'package:mini_help/widgets/buttons/primary/index.dart';
 
 class ActivityContainer extends StatelessWidget {
-  final ActivityService activityService;
+  final WorkoutService workoutService;
+  final ExerciseService exerciseService;
 
-  ActivityContainer({ required this.activityService });
+  ActivityContainer({ required this.workoutService, required this.exerciseService});
+  
+  void saveExerciseTemplate(ExerciseTemplate template) { 
+    exerciseService.saveTemplate(template);
+  }
+  
   @override
   Widget build(BuildContext context) {
-    var activities = activityService.getAllActivities();
+    var workouts = workoutService.getAllWorkouts();
 
     return Container(
       child: Column(
@@ -23,17 +32,33 @@ class ActivityContainer extends StatelessWidget {
           ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: activities.length,
+            itemCount: workouts.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(activities[index].name),
+                title: Text(workouts[index].workout.name),
               );
             },
           ),
           PrimaryButton('(+) Add New Activity', () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => NewActivityScreen(activityService: activityService,)),
+              MaterialPageRoute(builder: (context) => NewActivityScreen(
+                workoutService: workoutService, 
+                exerciseService: exerciseService)),
+            );
+          }),
+          PrimaryButton('(+) Create New Workout Template', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewWorkoutScreen(
+                workoutService: workoutService,
+                exerciseService: exerciseService,)),
+            );
+          }),
+          PrimaryButton('(+) Create New Exercise Template', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewExerciseTemplateScreen(saveExerciseTemplate)),
             );
           }),
         ],

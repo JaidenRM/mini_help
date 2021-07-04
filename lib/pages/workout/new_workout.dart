@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_help/forms/workout/new_workout.dart';
-import 'package:mini_help/models/activities/workout.dart';
-
+import 'package:mini_help/models/workout/workout_template.dart';
+import 'package:mini_help/services/exercise/index.dart';
+import 'package:mini_help/services/workout/index.dart';
 class NewWorkoutScreen extends StatelessWidget {
-  final Function(Workout) onSubmit;
+  final WorkoutService workoutService;
+  final ExerciseService exerciseService;
 
-  NewWorkoutScreen(this.onSubmit);
+  NewWorkoutScreen({ required this.workoutService, required this.exerciseService});
+
+  void saveTemplate(WorkoutTemplate template) {
+    workoutService.saveTemplate(template);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,10 @@ class NewWorkoutScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              NewWorkoutForm(onSubmit),
+              NewWorkoutForm(
+                saveTemplate,
+                exerciseService.getAllTemplates(),
+              ),
             ]
           ),
         ),
