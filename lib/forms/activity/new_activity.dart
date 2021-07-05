@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_help/forms/activity/widgets/exercise_layout.dart';
 import 'package:mini_help/models/workout/exercise.dart';
 import 'package:mini_help/models/workout/workout.dart';
 import 'package:mini_help/models/workout/workout_exercise.dart';
@@ -9,7 +10,6 @@ import 'package:mini_help/services/exercise/index.dart';
 import 'package:mini_help/services/workout/index.dart';
 import 'package:mini_help/widgets/buttons/primary/index.dart';
 import 'package:mini_help/widgets/inputs/form_dropdown.dart';
-import 'package:mini_help/widgets/inputs/form_text.dart';
 
 class NewActivityForm extends StatefulWidget {
   final WorkoutService workoutService;
@@ -50,40 +50,15 @@ class _NewActivityFormState extends State<NewActivityForm> {
             ),
             Text('Exercises:'),
             ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: _workout?.exercises.length ?? 0,
               itemBuilder: (context, index) {
-                return Container(
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        child: Text('X'),
-                        onTap: () => setState(() {
-                          _workoutExercises.remove(_workoutExercises[index]);
-                        }),
-                      ),
-                      Text('${_workoutExercises[index].exercise.name}, ${_workoutExercises[index].sets}:${_workoutExercises[index].reps}'),
-                      TextFormInput(
-                        labelText: 'Weight (kg): ',
-                        onValidate: (String? text) {
-                          var numericText = double.tryParse(text ?? '');
-                          if (numericText != null) {
-                            setState(() {
-                              _exercises.add(Exercise(
-                                _workoutExercises[index], 
-                                numericText, 
-                                ''
-                              ));
-                            });
-                          } else {
-                            return 'Please enter a value';
-                          }
-                        },
-                      )
-                    ]
-                  ),
-                );
+                return ExerciseLayout(
+                  addExercise: (Exercise ex) => _exercises.add(ex), 
+                  removeExercise: (WorkoutExercise ex) => setState(() => _workoutExercises.remove(ex)),
+                  workoutExercise: _workoutExercises[index]);
               },
             ),
             PrimaryButton('(+) Add Exercise', () {

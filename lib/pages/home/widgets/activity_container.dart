@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_help/models/workout/exercise_template.dart';
+import 'package:mini_help/pages/activity/history_activities.dart';
 import 'package:mini_help/pages/activity/new_activity.dart';
 import 'package:mini_help/pages/workout/new_exercise.dart';
 import 'package:mini_help/pages/workout/new_workout.dart';
@@ -39,6 +40,13 @@ class ActivityContainer extends StatelessWidget {
               );
             },
           ),
+          PrimaryButton('Activity History', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HistoryActivityScreen(
+                workouts: workouts)),
+            );
+          }),
           PrimaryButton('(+) Add New Activity', () {
             Navigator.push(
               context,
