@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mini_help/models/workout/workout.dart';
 
-class ViewActivityScreen extends StatelessWidget {
+class ViewWorkoutScreen extends StatelessWidget {
   final Workout workout;
 
-  ViewActivityScreen({ required this.workout });
+  ViewWorkoutScreen({ required this.workout });
 
   @override
   Widget build(BuildContext context) {

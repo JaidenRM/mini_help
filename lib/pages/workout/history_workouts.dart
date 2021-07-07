@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mini_help/models/workout/workout.dart';
-import 'package:mini_help/pages/activity/view_activity.dart';
+import 'package:mini_help/pages/workout/view_workout.dart';
 
-class HistoryActivityScreen extends StatelessWidget {
+class HistoryWorkoutScreen extends StatelessWidget {
   final List<Workout> workouts;
 
-  HistoryActivityScreen({ required this.workouts });
+  HistoryWorkoutScreen({ required this.workouts });
   
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class HistoryActivityScreen extends StatelessWidget {
                 subtitle: Text('Date: ${workouts[index].createdOn}, ${workouts[index].exercises.length} exercises'),
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ViewActivityScreen(workout: workouts[index],))
+                  MaterialPageRoute(builder: (context) => ViewWorkoutScreen(workout: workouts[index],))
                 ),
               );
             }
