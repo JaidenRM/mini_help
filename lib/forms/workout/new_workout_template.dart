@@ -41,18 +41,35 @@ class _NewWorkoutState extends State<NewWorkoutTemplateForm> {
               }
             },
           ),
+          SizedBox(height: 10),
           Text('Exercises:'),
-          ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: _exercises.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(_exercises[index].exercise.name),
-                subtitle: Text('Sets: ${_exercises[index].sets}, Reps: ${_exercises[index].reps}'),
-              );
-            },
+          SizedBox(height: 10),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.4,
+            width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              boxShadow: [BoxShadow(
+                offset: Offset(0.5, 0.5),
+                blurRadius: 2.0,
+                spreadRadius: -2.0,
+              )],
+            ),
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: _exercises.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    title: Text(_exercises[index].exercise.name),
+                    subtitle: Text('Sets: ${_exercises[index].sets}, Reps: ${_exercises[index].reps}'),
+                  ),
+                );
+              },
+            ),
           ),
+          SizedBox(height: 20),
           PrimaryButton('(+) Add New Exercise', (){
             Navigator.push(
               context,
@@ -61,7 +78,9 @@ class _NewWorkoutState extends State<NewWorkoutTemplateForm> {
                 widget.exerciseTemplates)),
             );
           }),
+          Expanded(child: SizedBox(height: 20)),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               PrimaryButton('Cancel', (){
                 Navigator.pop(context);
@@ -77,6 +96,7 @@ class _NewWorkoutState extends State<NewWorkoutTemplateForm> {
               }),
             ],
           ),
+          SizedBox(height: 20),
         ],
       ),
     );

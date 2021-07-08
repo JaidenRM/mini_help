@@ -16,13 +16,13 @@ class NewExerciseTemplateScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              NewExerciseTemplateForm(onSubmit),
-            ]
-          ),
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: NewExerciseTemplateForm(onSubmit),
+            ),
+          ]
         ),
       ),
     );

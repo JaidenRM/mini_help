@@ -44,6 +44,7 @@ class _NewWorkoutExerciseFormState extends State<NewWorkoutExerciseForm> {
           ),
           TextFormInput(
             labelText: 'Sets: ',
+            textInputType: TextInputType.number,
             onValidate: (String? text) {
               var numericText = int.tryParse(text ?? '');
               if (numericText != null) {
@@ -57,6 +58,7 @@ class _NewWorkoutExerciseFormState extends State<NewWorkoutExerciseForm> {
           ),
           TextFormInput(
             labelText: 'Reps: ',
+            textInputType: TextInputType.number,
             onValidate: (String? text) {
               var numericText = int.tryParse(text ?? '');
               if (numericText != null) {
@@ -68,7 +70,9 @@ class _NewWorkoutExerciseFormState extends State<NewWorkoutExerciseForm> {
               }
             },
           ),
+          Expanded(child: SizedBox()),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               PrimaryButton('Cancel', (){
                 Navigator.pop(context);
@@ -89,6 +93,7 @@ class _NewWorkoutExerciseFormState extends State<NewWorkoutExerciseForm> {
               }),
             ],
           ),
+          SizedBox(height: 20),
         ],
       )
     );

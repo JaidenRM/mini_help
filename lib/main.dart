@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mini_help/pages/home/index.dart';
+import 'package:mini_help/themes/default.dart';
 import 'package:mini_help/utils/constants/index.dart';
 import 'enums/frequency.dart';
 import 'models/workout/exercise_template.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mini Help',
+      theme: defaultTheme,
       home: Scaffold(
         body: HomeScreen(),
       ),

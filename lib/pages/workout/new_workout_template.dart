@@ -23,16 +23,16 @@ class NewWorkoutTemplateScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              NewWorkoutTemplateForm(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: NewWorkoutTemplateForm(
                 saveTemplate,
                 exerciseService.getAllTemplates(),
               ),
-            ]
-          ),
+            )
+          ]
         ),
       ),
     );

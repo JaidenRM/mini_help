@@ -18,13 +18,13 @@ class NewWorkoutExerciseScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              NewWorkoutExerciseForm(onSubmit, exerciseTemplates),
-            ]
-          ),
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: NewWorkoutExerciseForm(onSubmit, exerciseTemplates),
+            ),
+          ],
         ),
       ),
     );

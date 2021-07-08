@@ -13,7 +13,9 @@ class DropdownFormInput<T> extends StatelessWidget {
     return DropdownButtonFormField(
       decoration: InputDecoration(
         labelText: labelText,
+        isDense: true,
       ),
+      iconSize: 28,
       items: items,
       value: startingValue,
       onChanged: onChanged,

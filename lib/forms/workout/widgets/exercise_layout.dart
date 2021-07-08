@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mini_help/models/workout/exercise.dart';
 import 'package:mini_help/models/workout/workout_exercise.dart';
@@ -45,9 +46,10 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
           child: Column(
             children: [
               GestureDetector(
-                child: Text('X', style: TextStyle(fontSize: 48), textAlign: TextAlign.right,),
+                child: Icon(Icons.close, size: 56, color: Colors.red[700]),
                 onTap: () => widget.removeExercise(widget.workoutExercise),
               ),
+              Text(widget.workoutExercise.exercise.name),
               TextFormInput(
                 labelText: 'Sets',
                 textInputType: TextInputType.number,
@@ -91,7 +93,8 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
                 onValidate: (String? text) {
                   _comment = text;
                 },
-              )
+              ),
+              SizedBox(height: 10),
             ],
           )
         );

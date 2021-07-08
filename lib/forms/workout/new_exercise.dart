@@ -16,8 +16,6 @@ class _NewExerciseTemplateFormState extends State<NewExerciseTemplateForm> {
   final _formKey = GlobalKey<FormState>();
 
   late String _name;
-  //late int _reps;
-  //late int _sets;
 
   @override
   Widget build(BuildContext context) {
@@ -37,33 +35,9 @@ class _NewExerciseTemplateFormState extends State<NewExerciseTemplateForm> {
               }
             },
           ),
-          // TextFormInput(
-          //   labelText: 'Sets: ',
-          //   onValidate: (String? text) {
-          //     var numericText = int.tryParse(text ?? '');
-          //     if (numericText != null) {
-          //       setState(() {
-          //         _sets = numericText;
-          //       });
-          //     } else {
-          //       return 'Please enter a valid number';
-          //     }
-          //   },
-          // ),
-          // TextFormInput(
-          //   labelText: 'Reps: ',
-          //   onValidate: (String? text) {
-          //     var numericText = int.tryParse(text ?? '');
-          //     if (numericText != null) {
-          //       setState(() {
-          //         _reps = numericText;
-          //       });
-          //     } else {
-          //       return 'Please enter a valid number';
-          //     }
-          //   },
-          // ),
+          Expanded(child: SizedBox()),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               PrimaryButton('Cancel', (){
                 Navigator.pop(context);
@@ -72,7 +46,7 @@ class _NewExerciseTemplateFormState extends State<NewExerciseTemplateForm> {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger
                     .of(context)
-                    .showSnackBar(SnackBar(content: Text('Processing Data')));
+                    .showSnackBar(SnackBar(content: Text('Exercise template added')));
 
                   widget.onSubmit(ExerciseTemplate(
                     name: _name,
@@ -82,6 +56,7 @@ class _NewExerciseTemplateFormState extends State<NewExerciseTemplateForm> {
               }),
             ],
           ),
+          SizedBox(height: 20,),
         ],
       )
     );

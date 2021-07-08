@@ -18,6 +18,7 @@ class TextFormInput extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         labelText: labelText,
+        isDense: true,
       ),
       controller: textController,
       minLines: minLines,
