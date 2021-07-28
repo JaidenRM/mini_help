@@ -63,23 +63,22 @@ class _NewWorkoutFormState extends State<NewWorkoutForm> {
                   spreadRadius: -2.0,
                 )],
               ),
-              child: ListView.builder(
-                // physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: _workout?.exercises.length ?? 0,
-                itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                      child: ExerciseLayout(
-                        addExercise: (Exercise ex) => _exercises.add(ex), 
-                        removeExercise: (WorkoutExercise ex) => setState(() => _workoutExercises.remove(ex)),
-                        workoutExercise: _workoutExercises[index]),
-                    ),
-                  );
-                },
+              child: SingleChildScrollView(
+                child: Column(
+                  children: _workoutExercises.map((we) {
+                    return Card(
+                      elevation: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        child: ExerciseLayout(
+                          workoutService: widget.workoutService,
+                          addExercise: (Exercise ex) => _exercises.add(ex), 
+                          removeExercise: (WorkoutExercise ex) => setState(() => _workoutExercises.remove(ex)),
+                          workoutExercise: we),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
             SizedBox(height: 20),

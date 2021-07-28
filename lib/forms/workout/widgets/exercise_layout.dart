@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mini_help/models/workout/exercise.dart';
 import 'package:mini_help/models/workout/workout_exercise.dart';
+import 'package:mini_help/services/workout/index.dart';
 import 'package:mini_help/widgets/inputs/form_text.dart';
 
 class ExerciseLayout extends StatefulWidget {
   final void Function(Exercise) addExercise;
   final void Function(WorkoutExercise) removeExercise;
   final WorkoutExercise workoutExercise;
+  final WorkoutService workoutService;
 
   ExerciseLayout({ 
+    required this.workoutService,
     required this.addExercise, 
     required this.removeExercise, 
     required this.workoutExercise });
@@ -26,6 +29,9 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
 
   @override
   Widget build(BuildContext context) {
+    var lastTimeCompleted = widget.workoutService
+      .getMostRecentExerciseCompleted(widget.workoutExercise.exercise);
+    
     return FormField(
       onSaved: (_) {
         widget.addExercise(Exercise(
@@ -45,9 +51,25 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
         return Container(
           child: Column(
             children: [
-              GestureDetector(
-                child: Icon(Icons.close, size: 56, color: Colors.red[700]),
-                onTap: () => widget.removeExercise(widget.workoutExercise),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (lastTimeCompleted != null) IconButton(
+                    iconSize: 48,
+                    icon: Icon(Icons.info), 
+                    onPressed: null, 
+                    tooltip: '''
+                    
+Sets: ${lastTimeCompleted.exercise.sets} 
+Reps: ${lastTimeCompleted.exercise.sets} 
+Weight: ${lastTimeCompleted.weightKg} 
+Comments: ${lastTimeCompleted.comment} 
+                    '''),
+                  GestureDetector(
+                    child: Icon(Icons.close, size: 56, color: Colors.red[700]),
+                    onTap: () => widget.removeExercise(widget.workoutExercise),
+                  ),
+                ],
               ),
               Text(widget.workoutExercise.exercise.name),
               TextFormInput(
@@ -57,7 +79,9 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
                 onValidate: (String? text) {
                   var numericText = int.tryParse(text ?? '');
                   if (numericText != null) {
-                    _sets = numericText;
+                    setState(() {
+                      _sets = numericText;
+                    });
                   } else {
                     return 'Please enter a valid number';
                   }
@@ -70,7 +94,9 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
                 onValidate: (String? text) {
                   var numericText = int.tryParse(text ?? '');
                   if (numericText != null) {
-                    _reps = numericText;
+                    setState(() {
+                      _reps = numericText;
+                    });
                   } else {
                     return 'Please enter a valid number';
                   }
@@ -82,7 +108,9 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
                 onValidate: (String? text) {
                   var numericText = double.tryParse(text ?? '');
                   if (numericText != null) {
-                    _weight = numericText;
+                    setState(() {
+                      _weight = numericText;
+                    });
                   } else {
                     return 'Please enter a valid number';
                   }
@@ -91,7 +119,9 @@ class _ExerciseLayoutState extends State<ExerciseLayout> {
               TextFormInput(
                 labelText: 'Comments (optional)',
                 onValidate: (String? text) {
-                  _comment = text;
+                  setState(() {
+                    _comment = text;
+                  });
                 },
               ),
               SizedBox(height: 10),

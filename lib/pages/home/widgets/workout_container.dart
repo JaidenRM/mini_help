@@ -33,15 +33,27 @@ class WorkoutContainer extends StatelessWidget {
           Text(
             'Today', 
             style: TextStyle(fontSize: SIZE_TITLE)),
-          ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: workouts.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(workouts[index].workout.name),
-              );
-            },
+          SizedBox(height: 15,),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              boxShadow: [BoxShadow(
+                offset: Offset(0.5, 0.5),
+                blurRadius: 2.0,
+                spreadRadius: -2.0,
+              )],
+            ),
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: workouts.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(workouts[index].workout.name),
+                );
+              },
+            ),
           ),
           Expanded(child: SizedBox()),
           PrimaryButton('Workout History', () {
